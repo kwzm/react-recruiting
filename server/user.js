@@ -2,7 +2,7 @@ const express = require('express')
 const Router = express.Router()
 
 Router.get('/info', (req, res) => {
-  res.json({ code: 1 })
+  res.json({ code: 0 })
 })
 
 module.exports = Router
