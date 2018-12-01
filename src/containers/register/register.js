@@ -8,7 +8,22 @@ class Register extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { type: 'genius'}
+    this.state = { 
+      user: '',
+      pwd: '',
+      repeatpwd: '',
+      type: 'genius'
+    }
+  }
+
+  handleChange(key, value) {
+    this.setState({
+      [key]: value,
+    })
+  }
+
+  handleRegister = () => {
+    console.log(this.state)
   }
 
   render() {
@@ -17,23 +32,47 @@ class Register extends React.Component {
     return (
       <div>
         <Logo />
-        <h2>注册页面</h2>
         <WingBlank>
           <List>
-            <InputItem>用户名</InputItem>
+            <InputItem
+              onChange={(v) => this.handleChange('user', v)}
+            >
+              用户名
+            </InputItem>
             <WhiteSpace />
-            <InputItem>密码</InputItem>
+            <InputItem
+              type="password"
+              onChange={(v) => this.handleChange('pwd', v)}
+            >
+              密码
+            </InputItem>
             <WhiteSpace />
-            <InputItem>确认密码</InputItem>
+            <InputItem 
+              type="password"
+              onChange={(v) => this.handleChange('repeatpwd', v)}
+            >
+              确认密码
+            </InputItem>
             <WhiteSpace />
-            <RadioItem checked={type === 'genius'}>
+            <RadioItem 
+              checked={type === 'genius'}
+              onChange={(v) => this.handleChange('type', 'genius')}
+            >
               牛人
             </RadioItem>
-            <RadioItem checked={type === 'boss'}>
+            <RadioItem 
+              checked={type === 'boss'}
+              onChange={(v) => this.handleChange('type', 'boss')}
+            >
               BOSS
             </RadioItem>
             <WhiteSpace />
-            <Button type="primary">注册</Button>
+            <Button 
+              type="primary"
+              onClick={this.handleRegister}
+            >
+              注册
+            </Button>
           </List>
         </WingBlank>
       </div>
