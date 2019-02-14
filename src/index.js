@@ -11,7 +11,7 @@ import Register from './containers/register'
 import reducers from './reducer'
 import './config'
 import './index.css'
-
+console.log(reducers)
 const store = createStore(reducers, compose(
   applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
