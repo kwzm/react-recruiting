@@ -20,8 +20,6 @@ const store = createStore(reducers, compose(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ))
 
-const Boss = () => <h2>Boss</h2>
-
 ReactDOM.render(
   (
     <Provider store={store}>
@@ -31,7 +29,6 @@ ReactDOM.render(
           <Switch>
             <Route path="/bossinfo" component={BossInfo} />
             <Route path="/geniusinfo" component={GeniusInfo} />
-            <Route path="/boss" component={Boss} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route component={Dashboard} />
