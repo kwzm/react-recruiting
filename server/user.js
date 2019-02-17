@@ -65,6 +65,30 @@ Router.get('/info', (req, res) => {
   })
 })
 
+Router.post('/update', (req, res) => {
+  const { userid } = req.cookies
+
+  if (!userid) {
+    return res.json({code: 1})
+  }
+
+  const body = req.body
+  User.findByIdAndUpdate(userid, body, function(err, doc){
+    if (err) {
+      return res.json({code: 1, msg: '后端出错了'})
+    }
+    if (doc) {
+      const data = {
+        user: doc.user,
+        type: doc.type,
+        ...body
+      }
+
+      return res.json({ code: 0, data })
+    }
+  })
+})
+
 function md5Pwd(pwd) {
   const salt = 'imooc_is_good_3957x8yza6!@IUHJh~~'
 
