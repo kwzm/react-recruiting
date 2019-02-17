@@ -9,7 +9,6 @@ const initState = {
   redirectTo: '',
   msg: '',
   user: '',
-  pwd: '',
   type: '',
 }
 
@@ -20,7 +19,9 @@ export function errorMsg(msg) {
   }
 }
 
-export function authSuccess(data) {
+export function authSuccess(obj) {
+  const { pwd, ...data } = obj
+
   return {
     type: AUTH_SUCCESS,
     payload: data
