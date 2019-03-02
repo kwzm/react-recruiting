@@ -11,13 +11,14 @@ import Dashboard from './components/Dashboard'
 import Register from './containers/register'
 import BossInfo from './containers/bossinfo'
 import GeniusInfo from './containers/geniusinfo'
+import Chat from './components/Chat'
 import reducers from './reducer'
 import './config'
 import './index.css'
 
-const store = createStore(reducers, compose(
-  applyMiddleware(thunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducers, composeEnhancers(
+  applyMiddleware(thunk)
 ))
 
 ReactDOM.render(
@@ -31,6 +32,7 @@ ReactDOM.render(
             <Route path="/geniusinfo" component={GeniusInfo} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/chat/:user" component={Chat} />
             <Route component={Dashboard} />
           </Switch>
         </div>
