@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { List, InputItem } from 'antd-mobile'
-import { getMsgList } from '../../redux/chat.redux'
+import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 
 @connect(
   state => state,
-  { getMsgList }
+  { getMsgList, sendMsg, recvMsg }
 )
 class Chat extends React.Component {
   constructor(props) {
@@ -22,6 +22,7 @@ class Chat extends React.Component {
   //     this.setState({ msg: [...this.state.msg, data.text]})
   //   })
     this.props.getMsgList()
+    this.props.recvMsg()
   }
 
   handleChange = (v) => {
@@ -30,6 +31,11 @@ class Chat extends React.Component {
 
   handleSubmit = () => {
     // socket.emit('sendmsg', { text: this.state.text })
+    const from = this.props.user._id
+    const to = this.props.match.params.user
+    const msg = this.state.text
+    
+    this.props.sendMsg({from, to, msg})
     this.setState({ text: '' })
   }
 
