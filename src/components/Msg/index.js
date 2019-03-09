@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { List } from 'antd-mobile'
+import { List, Badge } from 'antd-mobile'
 
 @connect(
   state => state
@@ -27,6 +27,7 @@ class Msg extends React.Component {
         {chartList.map(v => {
           const lastItem = this.getLast(v)
           const targetId = v[0].from === userId ? v[0].to : v[0].from
+          const unreadNum = v.filter(v => !v.read && v.to === userId).length
 
           if (!userInfo[targetId]) {
             return null
@@ -37,6 +38,7 @@ class Msg extends React.Component {
               <Item 
                 key={lastItem._id}
                 thumb={require(`../img/${userInfo[targetId].avatar}.png`)}
+                extra={<Badge text={unreadNum} />}
               >
                 {lastItem.content}
                 <Brief>{userInfo[targetId].name}</Brief>
