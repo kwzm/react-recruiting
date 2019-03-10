@@ -31,10 +31,12 @@ export default function chat(state = initState, action) {
         unread: state.unread + n
       }
     case MSG_READ: 
+      const { from, num } = action.payload
+      
       return {
         ...state,
-        chatmsg: state.chatmsg.map(v => ({...v, read: true})),
-        unread: state.unread - action.payload.num
+        chatmsg: state.chatmsg.map(v => ({...v, read: v.from === from ? true : v.read})),
+        unread: state.unread - num
       }
     default: 
       return state
@@ -60,7 +62,7 @@ export function readMsg(from) {
         const userid = getState().user._id
 
         if (res.status === 200 && res.data.code === 0) {
-          dispatch(msgRead(from, userid, res.data.num))
+          dispatch(msgRead({from, userid, num: res.data.num}))
         }
       })
   }

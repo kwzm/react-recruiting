@@ -40,9 +40,8 @@ class Msg extends React.Component {
           }
 
           return (
-            <List>
+            <List key={lastItem._id}> 
               <Item 
-                key={lastItem._id}
                 thumb={require(`../img/${userInfo[targetId].avatar}.png`)}
                 extra={<Badge text={unreadNum} />}
                 arrow="horizontal"
