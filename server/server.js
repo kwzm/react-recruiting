@@ -1,16 +1,15 @@
+const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./user')
 const model = require('./model')
 const Chat = model.getModel('chat')
-
 const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
 io.on('connection', function(socket) {
-  console.log('user login')
   socket.on('sendmsg', function(data){
     console.log(data)
     // io.emit('recvmsg', data)
@@ -25,7 +24,15 @@ io.on('connection', function(socket) {
 
 app.use(cookieParser())
 app.use(bodyParser.json())
+app.use(express.static(path.resolve('build')))
 app.use('/user', userRouter)
+app.use(function(req, res, next){
+  if (req.url.startsWith('/user/')||req.url.startsWith('/static/')) {
+    return next()
+  }
+  
+  return res.sendFile(path.resolve('build/index.html'))
+})
 
 server.listen(9093, () => {
   console.log('Node app start at port 9093')
