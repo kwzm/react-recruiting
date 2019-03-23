@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
+import QueueAnim from 'rc-queue-anim'
 import { sendMsg, getMsgList, recvMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../util'
 
@@ -76,25 +77,27 @@ class Chat extends React.Component {
           onLeftClick={() => this.props.history.goBack()}
         >
           {users[userid].name}
-        </NavBar>             
-        {chatmsgs.map(v => {
-          const avatar = require(`../img/${users[v.from].avatar}.png`)
+        </NavBar> 
+        <QueueAnim delay={100}>            
+          {chatmsgs.map(v => {
+            const avatar = require(`../img/${users[v.from].avatar}.png`)
 
-          return v.from === userid ? (
-            <List key={v._id}>
-              <Item thumb={avatar}>{v.content}</Item> 
-            </List>
-          ) : (
-            <List key={v._id}>
-              <Item 
-                className="chat-me"
-                extra={<img src={avatar} alt="头像" />}
-              >
-                {v.content}
-              </Item> 
-            </List>
-          )
-        })}
+            return v.from === userid ? (
+              <List key={v._id}>
+                <Item thumb={avatar}>{v.content}</Item> 
+              </List>
+            ) : (
+              <List key={v._id}>
+                <Item 
+                  className="chat-me"
+                  extra={<img src={avatar} alt="头像" />}
+                >
+                  {v.content}
+                </Item> 
+              </List>
+            )
+          })}
+        </QueueAnim>
         <div className="stick-footer">
           <List>
             <InputItem 
