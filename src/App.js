@@ -29,7 +29,7 @@ class App extends React.Component {
     const { hasError } = this.state
 
     return hasError ? (
-      <h2>页面出错了</h2>
+      <h2 style={{textAlign: 'center'}}>页面出错了</h2>
     ) : (
       <div>
         <AuthRoute />
